@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_estados/bloc/user/user_bloc.dart';
-import 'package:flutter_estados/models/usuario.dart';
-
 
 class Pagina1Page extends StatelessWidget {
 
@@ -15,23 +11,12 @@ class Pagina1Page extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.delete_outline),
             onPressed: (){
-              BlocProvider.of<UserBloc>(context, listen: false)
-              .add(DeleteUser());
+             
             }
           )
         ],
       ),
-      body: BlocBuilder<UserBloc, UserState>(
-        builder: (_, state) {
-
-          return state.existUser
-           ? InformacionUsuario( user: state.user!, )
-           :  const Center(
-             child: Text('No hay usuario seleccionado'),
-           );
-                     
-        },
-      ),
+      body: InformacionUsuario(),
      floatingActionButton: FloatingActionButton(
        child: Icon( Icons.accessibility_new),
        onPressed: (){
@@ -44,9 +29,7 @@ class Pagina1Page extends StatelessWidget {
 
 class InformacionUsuario extends StatelessWidget {
 
-  final Usuario user;
 
-  const InformacionUsuario({Key? key, required this.user}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
@@ -60,15 +43,13 @@ class InformacionUsuario extends StatelessWidget {
             const Text('General', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
             const Divider(),
 
-             ListTile( title: Text('Nombre: ${ user.nombre }'),),
-             ListTile( title: Text('Edad: ${ user.edad } '),),
+             ListTile( title: Text('Nombre: '),),
+             ListTile( title: Text('Edad: '),),
 
             const Text('Profesiones', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
             const Divider(),
             
-            ...user.profesiones.map((profesion) => ListTile(
-              title: Text(profesion),
-            )).toList()
+           
              
            ],
          ),
